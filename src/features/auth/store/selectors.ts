@@ -1,4 +1,4 @@
-import { AuthState } from "@/features/auth/store/store";
+import { AuthState } from "@/features/auth/types";
 
 type RootStateLike = { auth: AuthState };
 

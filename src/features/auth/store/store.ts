@@ -1,5 +1,5 @@
 import { createSlice } from "@reduxjs/toolkit";
-import type { AuthStatus, AuthUser } from "../types";
+import type { AuthState } from "../types";
 import {
   loginStart,
   loginSuccess,
@@ -9,13 +9,6 @@ import {
   clearAuthError,
   logout,
 } from "./reducers";
-
-export type AuthState = {
-  accessToken: string | null;
-  user: AuthUser | null;
-  status: AuthStatus;
-  error: string | null;
-};
 
 const initialState: AuthState = {
   accessToken: null,
@@ -37,3 +30,7 @@ export const authStore = createSlice({
     logout,
   },
 });
+
+export const authReducer = authStore.reducer;
+
+export const authActions = authStore.actions;

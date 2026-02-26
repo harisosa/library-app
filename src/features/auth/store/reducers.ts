@@ -1,6 +1,5 @@
 import type { PayloadAction } from "@reduxjs/toolkit";
-import type { AuthUser, LoginResult } from "../types";
-import { AuthState, authStore } from "@/features/auth/store/store";
+import type { AuthState, AuthUser, LoginResult } from "../types";
 
 export const loginStart = (s: AuthState) => {
   s.status = "loading";
@@ -41,5 +40,3 @@ export const logout = (s: AuthState) => {
   s.status = "unauthenticated";
   s.error = null;
 };
-
-export const authReducer = authStore.reducer;

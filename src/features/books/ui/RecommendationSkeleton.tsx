@@ -4,11 +4,9 @@ import { cn } from "@/lib/utils"
 import { Card } from "@/components/ui/card"
 import { Section } from "@/shared/components/layout"
 
-type Props = { className?: string }
-
-export const RecommendationSkeleton: React.FC<Props> = ({ className }) => {
+export const RecommendationSkeleton: React.FC = () => {
   return (
-    <Section className={className}>
+    <Section id="recommendation" title="Recommendation">
       <div className="h-7 w-52 rounded-md bg-muted" />
 
       <div

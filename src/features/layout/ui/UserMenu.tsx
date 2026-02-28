@@ -1,7 +1,7 @@
 'use client';
 
 import Link from 'next/link';
-import { ChevronDown, Ghost, LogOut } from 'lucide-react';
+import { ChevronDown,  LogOut } from 'lucide-react';
 
 
 import { DropdownMenu, DropdownMenuContent, DropdownMenuItem, DropdownMenuSeparator, DropdownMenuTrigger } from '@/components/ui/dropdown-menu';
@@ -11,6 +11,7 @@ import { NotificationButton } from '@/components/ui/notification';
 import { Avatar, AvatarFallback, AvatarImage } from '@/components/ui/avatar';
 import { selectAuthUser, selectRole } from '@/features/auth/store';
 import { useAppSelector } from '@/store/hooks';
+import { getInitials } from '@/lib/utils';
 
 
 export const UserMenu: React.FC = () => {
@@ -18,12 +19,7 @@ export const UserMenu: React.FC = () => {
   const role = useAppSelector(selectRole);
   const menuItems = NAVBAR_DROPDOWN_MENU.filter((m) => m.roles.includes(role ?? 'USER'));
 
-  const initials = user?.name
-    .trim()
-    .split(/\s+/)
-    .slice(0, 2)
-    .map((x) => x[0]?.toUpperCase())
-    .join('');
+  
 
   return (
     <div className="flex items-center gap-6">
@@ -34,7 +30,7 @@ export const UserMenu: React.FC = () => {
           <Avatar className="h-12 w-12">
             <AvatarImage src={user?.profilePhoto || ''} alt={user?.name} />
             <AvatarFallback className="text-md font-semibold">
-              {initials}
+              {getInitials(user?.name)}
             </AvatarFallback>
           </Avatar>
 

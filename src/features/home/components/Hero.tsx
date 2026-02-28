@@ -6,7 +6,7 @@ import { Section } from "@/shared/components/layout";
 
 export const Hero = () => {
     return (
-        <Section>
+        <Section id="hero">
             <Carousel />
         </Section>
     );

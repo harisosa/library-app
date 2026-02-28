@@ -8,35 +8,18 @@ import { useRecommendedBooksInfinite } from "@/features/books/hooks/useRecommend
 import { BookCard } from "@/features/books/ui"
 import { RecommendationSkeleton } from "@/features/books/ui/RecommendationSkeleton"
 import { Section } from "@/shared/components/layout"
+import { RecommendationError } from "@/features/books/ui/RecommendationError"
 
-
-type Props = {
-  className?: string
-  title?: string
-}
-
-export const RecommendationSection: React.FC<Props> = ({
-  className,
-  title = "Recommendation",
-}) => {
+export const RecommendationSection: React.FC = () => {
   const q = useRecommendedBooksInfinite({ by: "rating", limit: 10 })
 
-  if (q.isLoading) return <RecommendationSkeleton className={className} />
-  if (q.isError) {
-    return (
-      <div className={cn("space-y-3", className)}>
-        <h2 className="text-xl font-semibold text-foreground">{title}</h2>
-        <div className="text-sm text-destructive">Failed to load recommendations.</div>
-      </div>
-    )
-  }
+  if (q.isLoading) return <RecommendationSkeleton />
+  if (q.isError)     return <RecommendationError />
 
   const books = q.data?.pages.flatMap((p) => p.books) ?? []
 
   return (
-    <Section className={className}>
-      <h2 className="mb-10 text-display-xs lg:text-display-lg font-bold text-neutral-950">{title}</h2>
-
+    <Section id="recommendation" title="Recommendation">
       <div
         className={cn(
           "grid justify-between",

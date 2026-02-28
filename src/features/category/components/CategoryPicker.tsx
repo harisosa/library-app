@@ -23,7 +23,7 @@ export const CategoryPicker: React.FC<CategoryPickerProps> = ({
 
   if (isLoading) {
 
-    return <Section> <CardsSkeleton count={limit} /> </Section> 
+    return <Section id='category-picker'> <CardsSkeleton count={limit} /> </Section> 
   }
 
   if (isError) {
@@ -37,7 +37,7 @@ export const CategoryPicker: React.FC<CategoryPickerProps> = ({
   }
 
   return (
-    <Section>
+    <Section id='category-picker'>
       <div className="w-full flex gap-3 lg:gap-4 flex-wrap">
         {categories.map((c) => (
           <CategoryCard

@@ -1,4 +1,5 @@
-import { Carousel } from "@/features/home/components/Carousel";
+
+import { Carousel } from "@/features/home/ui";
 import { Section } from "@/shared/components/layout";
 
 

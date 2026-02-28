@@ -2,11 +2,9 @@
 
 import * as React from "react"
 import { Card } from "@/components/ui/card"
-import { cn } from "@/lib/utils"
 import { useCategories } from "@/features/category/hooks/useCategories"
-import { CardsSkeleton } from "@/features/category/components/CardSkeleton"
-import { CategoryCard } from "@/features/category/components/CategoryCard"
 import { Section } from "@/shared/components/layout"
+import { CardsSkeleton, CategoryCard } from "@/features/category/ui"
 
 type CategoryPickerProps = {
   limit?: number
@@ -40,7 +38,7 @@ export const CategoryPicker: React.FC<CategoryPickerProps> = ({
 
   return (
     <Section>
-      <div className="w-full flex gap-4 flex-wrap">
+      <div className="w-full flex gap-3 lg:gap-4 flex-wrap">
         {categories.map((c) => (
           <CategoryCard
             key={c.id}

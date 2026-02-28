@@ -1,6 +1,6 @@
 import { SearchInput } from "@/components/ui/search-input";
-import { GuestActions } from "@/features/layout/components/navbar/GuestActions";
-import { UserMenu } from "@/features/layout/components/navbar/UserMenu";
+import { GuestActions } from "@/features/layout/ui/GuestActions";
+import { UserMenu } from "@/features/layout/ui/UserMenu";
 import Image from "next/image";
 import Link from "next/link";
 

@@ -1,14 +1,19 @@
 "use client";
 
-import { AuthGuard } from "@/features/auth/components";
+
+import { Navbar } from "@/features/layout/components/navbar";
 import React from "react";
 
 const MainLayout: React.FC<React.PropsWithChildren> = ({ children }) => {
   return (
-    <AuthGuard>
-      {/* Navbar / AppShell taruh di sini nanti */}
+    <>
+      <Navbar />
+      <main>
       {children}
-    </AuthGuard>
+      </main>
+
+    </>
+
   );
 };
 

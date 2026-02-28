@@ -12,7 +12,7 @@ export const login = (payload: LoginPayload) => {
 
 
 export const register = async (payload: RegisterPayload) => {
-  await api<void>({
+  await api({
     url: "/auth/register",
     method: "POST",
     data: payload,

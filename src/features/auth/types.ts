@@ -1,4 +1,4 @@
-export type AuthRole = "ADMIN" | "USER";
+export type UserRole  = "ADMIN" | "USER";
 
 export type AuthUser = {
   id: number;
@@ -6,7 +6,7 @@ export type AuthUser = {
   email: string;
   phone: string | null;
   profilePhoto: string | null;
-  role: AuthRole;
+  role: UserRole ;
 };
 
 export type LoginPayload = {

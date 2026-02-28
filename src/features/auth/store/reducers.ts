@@ -7,7 +7,7 @@ export const loginStart = (s: AuthState) => {
 };
 
 export const loginSuccess = (s: AuthState, a: PayloadAction<LoginResult>) => {
-  s.accessToken = a.payload.accessToken;
+  s.accessToken = a.payload.token;
   s.user = a.payload.user;
   s.status = "authenticated";
   s.error = null;

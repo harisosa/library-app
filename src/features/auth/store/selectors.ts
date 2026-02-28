@@ -11,3 +11,7 @@ export const selectAuthError = (s: RootStateLike) => selectAuth(s).error;
 
 export const selectIsAuthenticated = (s: RootStateLike) =>
   Boolean(selectAccessToken(s));
+
+export const selectRole = (s: RootStateLike) => selectAuthUser(s)?.role ?? null;
+
+export const selectIsAdmin = (s: RootStateLike) => selectRole(s) === "ADMIN";

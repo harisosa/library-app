@@ -22,8 +22,11 @@ export type Book = {
 
 export type RecommendMode = "rating" | "borrow" | "newest" | string
 
-export type RecommendBooksResponse = {
-    mode: RecommendMode
+export type RecommendBooksResponse = ListBookPagniation & {
+  mode: RecommendMode
+}
+
+export type ListBookPagniation = {
     books: Book[]
     pagination: Pagination
 
@@ -78,4 +81,13 @@ export type BookDetail = {
   author: BookAuthor
   category: BookCategory
   reviews: BookReview[]
+}
+
+export type BooksListFilters = {
+  q?: string
+  categoryId?: number
+  authorId?: number
+  minRating?: number
+  page?: number
+  limit?: number
 }

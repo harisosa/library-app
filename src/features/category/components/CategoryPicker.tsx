@@ -5,16 +5,17 @@ import { Card } from "@/components/ui/card"
 import { useCategories } from "@/features/category/hooks/useCategories"
 import { Section } from "@/shared/components/layout"
 import { CardsSkeleton, CategoryCard } from "@/features/category/ui"
+import { useRouter } from "next/navigation"
+
 
 type CategoryPickerProps = {
   limit?: number
-  onSelect?: (categoryId: number) => void
 }
 
 export const CategoryPicker: React.FC<CategoryPickerProps> = ({
   limit = 6,
-  onSelect,
 }) => {
+  const router = useRouter()
   const { data, isLoading, isError } = useCategories()
 
   const categories = React.useMemo(() => {
@@ -35,6 +36,10 @@ export const CategoryPicker: React.FC<CategoryPickerProps> = ({
       </Card>
     )
   }
+
+  const onSelect = (categoryId: number) => {
+  router.push(`/category?categoryId=${categoryId}`)
+}
 
   return (
     <Section id='category-picker'>

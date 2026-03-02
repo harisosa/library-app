@@ -1,5 +1,5 @@
 import { api } from "@/lib/http"
-import type { BookDetail, RecommendBooksResponse, RecommendMode } from "../types"
+import type { BookDetail, BooksListFilters, ListBookPagniation, RecommendBooksResponse, RecommendMode } from "../types"
 
 export type GetRecommendedBooksParams = {
   by?: RecommendMode
@@ -33,4 +33,12 @@ export const getBookDetail = async (bookId: number): Promise<BookDetail> => {
     url: `/books/${bookId}`,
   })
 
+}
+
+export const getBooks = async (params: BooksListFilters): Promise<ListBookPagniation> => {
+  return await api<ListBookPagniation>({
+    method: "GET",
+    url: "/books",
+    params,
+  })
 }

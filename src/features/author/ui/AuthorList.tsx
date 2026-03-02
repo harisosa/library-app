@@ -1,12 +1,17 @@
 
 import { Author } from '@/features/author/types'
 import { AuthorCard } from './AuthorCard'
+import { useRouter } from 'next/navigation'
 
 type AuthorsListProps = {
   authors: Author[]
 }
 
 export const AuthorsList = ({ authors }: AuthorsListProps) => {
+  const router = useRouter()
+  const onClickCard = (authorId: number) => {
+    router.push(`/author/${authorId}`)
+  }
   return (
     <div
       className="
@@ -17,7 +22,7 @@ export const AuthorsList = ({ authors }: AuthorsListProps) => {
       "
     >
       {authors.map((author) => (
-        <AuthorCard key={author.id} author={author} />
+        <AuthorCard key={author.id} author={author} onClick={onClickCard} />
       ))}
     </div>
   )

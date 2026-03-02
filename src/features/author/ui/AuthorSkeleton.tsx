@@ -1,7 +1,7 @@
 import { Section } from "@/shared/components/layout"
 
 
-const SkeletonCard = () => {
+export const SkeletonCard = () => {
   return (
     <div
       className="

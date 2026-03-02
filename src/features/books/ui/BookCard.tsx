@@ -1,4 +1,3 @@
-// src/features/home/ui/recommendation/RecommendationBookCard.tsx
 "use client"
 
 import * as React from "react"

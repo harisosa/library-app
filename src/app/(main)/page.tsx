@@ -1,5 +1,5 @@
 import { Separator } from "@/components/ui/separator";
-import { PopularAuthors } from "@/features/author/components/PopularAuthors";
+import { PopularAuthors } from "@/features/author/components";
 import { BookCarousel } from "@/features/books/components";
 
 import { CategoryPicker } from "@/features/category/components";

@@ -1,1 +1,2 @@
-export * from './Recommendation';
+export * from './BookCarousel';
+export * from './BookDetailContainer';

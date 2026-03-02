@@ -7,6 +7,7 @@ import { cn } from "@/lib/utils"
 import { Star } from "lucide-react"
 import type { Book } from "@/features/books/types"
 import { BookCover } from "@/features/books/ui/BookCover"
+import Link from "next/link"
 
 type BookCardProps = {
   book: Book
@@ -21,6 +22,7 @@ export const BookCard: React.FC<BookCardProps> = ({ book, className }) => {
         "w-43 h-92.5 xl:w-56 xl:h-117",
         className,
       )}
+
     >
       <div
         className={cn(
@@ -33,12 +35,17 @@ export const BookCard: React.FC<BookCardProps> = ({ book, className }) => {
 
       <div className="flex flex-col p-4 gap-1">
 
-          <div className="text-lg font-bold line-clamp-2">
-            {book.title || "Book Name"}
-          </div>
-          <div className="text-md font-medium text-neutral-500 line-clamp-1">
-            {book.author?.name ?? "Author name"}
-          </div>
+        <div className="">
+          <Link
+            href={`/books/${book.id}`}
+            className="text-lg font-bold line-clamp-2"
+            aria-label={`Open book detail ${book.id}`}
+          >{book.title || "Book Name"}</Link>
+
+        </div>
+        <div className="text-md font-medium text-neutral-500 line-clamp-1">
+          {book.author?.name ?? "Author name"}
+        </div>
         <div className="flex items-center gap-2">
           <Star className="h-4 w-4 fill-amber-400 text-amber-400" />
           <span className="text-md font-semibold text-neutral-900">{Number(book.rating ?? 0).toFixed(1)}</span>

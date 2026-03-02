@@ -1,4 +1,3 @@
-// src/features/home/ui/recommendation/RecommendationSection.tsx
 "use client"
 
 import * as React from "react"
@@ -6,12 +5,22 @@ import { cn } from "@/lib/utils"
 import { Button } from "@/components/ui/button"
 import { useRecommendedBooksInfinite } from "@/features/books/hooks/useRecommendedBooksInfinite"
 import { BookCard } from "@/features/books/ui"
-import { RecommendationSkeleton } from "@/features/books/ui/RecommendationSkeleton"
 import { Section } from "@/shared/components/layout"
-import { RecommendationError } from "@/features/books/ui/RecommendationError"
+import { RecommendationError } from "@/features/books/ui/recommendation"
+import { RecommendationSkeleton } from "@/features/books/ui/skeleton"
 
-export const RecommendationSection: React.FC = () => {
-  const q = useRecommendedBooksInfinite({ by: "rating", limit: 10 })
+type BookCarouselProps = {
+  id: string;
+  by : 'popular' | 'rating';
+  limit: number;
+  title?: string;
+  isLoadMore?: boolean;
+  containerClassname?: string;
+}
+
+
+export const BookCarousel: React.FC<BookCarouselProps> = ({id, by, limit, title, isLoadMore = true, containerClassname}) => {
+  const q = useRecommendedBooksInfinite({ by: by, limit: limit })
 
   if (q.isLoading) return <RecommendationSkeleton />
   if (q.isError)     return <RecommendationError />
@@ -19,7 +28,7 @@ export const RecommendationSection: React.FC = () => {
   const books = q.data?.pages.flatMap((p) => p.books) ?? []
 
   return (
-    <Section id="recommendation" title="Recommendation">
+    <Section id={id} title={title} contentClassName={containerClassname} >
       <div
         className={cn(
           "grid justify-between",
@@ -34,6 +43,8 @@ export const RecommendationSection: React.FC = () => {
         ))}
       </div>
 
+        {isLoadMore && (
+
       <div className="flex justify-center mt-10">
         <Button
           type="button"
@@ -45,6 +56,8 @@ export const RecommendationSection: React.FC = () => {
           {q.isFetchingNextPage ? "Loading..." : "Load More"}
         </Button>
       </div>
+        )}
+
     </Section>
   )
 }

@@ -1,4 +1,3 @@
-// src/features/books/ui/BookCover.tsx
 "use client"
 
 import * as React from "react"
@@ -11,35 +10,28 @@ type BookCoverProps = {
   alt: string
   className?: string
   priority?: boolean
+  fit?: "cover" | "contain"
 }
 
-export const BookCover: React.FC<BookCoverProps> = ({ src, alt, className, priority }) => {
+export const BookCover: React.FC<BookCoverProps> = ({
+  src,
+  alt,
+  className,
+  priority,
+  fit = "cover",
+}) => {
   const normalized = normalizeCoverImageSrc(src)
-
-  if (!normalized) {
-    return (
-      <div
-        className={cn(
-          "grid place-items-center rounded-2xl bg-muted text-xs text-muted-foreground",
-          className,
-        )}
-        aria-label={`${alt} cover placeholder`}
-      >
-        No Cover
-      </div>
-    )
-  }
-
-  const isData = normalized.startsWith("data:image/")
+  const isData = normalized?.startsWith("data:image/")
+  const objectClass = fit === "cover" ? "object-cover" : "object-contain"
 
   return (
     <Image
-      src={normalized}
+      src={normalized ?? ''}
       alt={alt}
       fill
       priority={priority}
       unoptimized={isData}
-      className={cn("rounded-2xl object-cover", className)}
+      className={cn(objectClass, className)}
     />
   )
 }

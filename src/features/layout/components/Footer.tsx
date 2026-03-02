@@ -26,7 +26,7 @@ export const Footer = () => {
             py-14 md:py-20
           "
                 >
-                    <div className="flex items-center justify-center gap-3 relative w-[155px] h-[42px]">
+                    <div className="flex items-center justify-center gap-3 relative w-38.75 h-10.5">
                         <Image
                             src="/images/logo.svg"
                             alt="Booky"

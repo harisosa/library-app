@@ -11,7 +11,6 @@ export const Carousel = () => {
     return (
         <div className="w-full">
             <div className="flex flex-col">
-                {/* IMAGE AREA: punya tinggi dari aspect ratio */}
                 <div className="relative w-full overflow-hidden rounded-2xl aspect-video sm:aspect-21/9">
                     <AnimatePresence mode="wait">
                         <motion.img
@@ -26,8 +25,6 @@ export const Carousel = () => {
                         />
                     </AnimatePresence>
                 </div>
-
-                {/* DOTS */}
                 <div className="mt-3 flex items-center justify-center gap-2">
                     {slides.map((_, i) => (
                         <button

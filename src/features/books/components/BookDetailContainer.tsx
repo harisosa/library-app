@@ -1,7 +1,7 @@
 "use client"
 
 import * as React from "react"
-import { useBookDetail } from "@/features/books/hooks/useBookDetail"
+import { useBookDetail } from "@/features/books/hooks"
 import { BookDetail } from "@/features/books/ui/BookDetail"
 import { BookDetailSkeleton } from "@/features/books/ui/skeleton"
 
@@ -11,7 +11,6 @@ type Props = {
 
 export const BookDetailContainer: React.FC<Props> = ({ bookId }) => {
   const { data, isLoading, isError } = useBookDetail(bookId)
-
   if (isLoading) {
     return <BookDetailSkeleton/>
   }
@@ -25,7 +24,9 @@ export const BookDetailContainer: React.FC<Props> = ({ bookId }) => {
   }
 
   const model = {
+    id: data.id,
     title: data.title,
+    availableCopies: data.availableCopies,
     authorName: data.author?.name ?? "-",
     categoryName: data.category?.name ?? "-",
     rating: data.rating ?? 0,
@@ -36,16 +37,11 @@ export const BookDetailContainer: React.FC<Props> = ({ bookId }) => {
     coverImage: data.coverImage,
   }
 
+
+
   return (
     <BookDetail
       data={model}
-      onAddToCart={() => {
-        console.log("add-to-cart", bookId)
-      }}
-      onBorrow={() => {
-        console.log("borrow", bookId)
-      }}
-      disabledBorrow={data.availableCopies === 0}
     />
   )
 }

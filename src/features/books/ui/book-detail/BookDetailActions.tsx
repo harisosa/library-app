@@ -1,20 +1,41 @@
 import * as React from "react"
 import { Button } from "@/components/ui/button"
 import { cn } from "@/lib/utils"
+import { useAddCartItem } from "@/features/cart/hooks/useAddCartItem";
+import { useRouter } from "next/navigation";
+import { useIsBookInCart } from "@/features/cart/hooks";
 
-type Props = {
-  onAddToCart?: () => void
-  onBorrow?: () => void
-  disabledBorrow?: boolean
-  className?: string
+type BookDetailActionsProps = {
+  bookId: number;
+  className?: string;
+  isAvailable?: boolean;
 }
 
-export const BookDetailActions: React.FC<Props> = ({
-  onAddToCart,
-  onBorrow,
-  disabledBorrow,
+export const BookDetailActions: React.FC<BookDetailActionsProps> = ({
+  bookId,
   className,
+  isAvailable
 }) => {
+
+
+  const router = useRouter();
+  const {mutateAsync, isPending} = useAddCartItem();
+
+  const inCart = useIsBookInCart(bookId);
+  if (inCart.data === true) return <div className="w-full p-1 bg-muted  mt-3 text-center"><span>Book already in cart</span></div>;
+
+  if(!isAvailable) return <div className="w-full p-1 bg-muted  mt-3 text-center"><span>No Available copy</span></div>;
+
+  const disabled = isPending || inCart.isLoading;
+
+  const onAddToCart = () => {
+    mutateAsync({bookId})
+  };
+
+  const onBorrow = () => {
+          router.push("/cart");
+  }
+
   return (
     <>
       <div
@@ -35,15 +56,15 @@ export const BookDetailActions: React.FC<Props> = ({
             variant="outline"
             className="h-10 flex-1 rounded-full px-6"
             onClick={onAddToCart}
+            disabled={disabled}
           >
-            Add to Cart
+            {disabled ? "Adding..." : "Add to cart"}
           </Button>
 
           <Button
             type="button"
             className="h-10 flex-1 rounded-full px-7"
             onClick={onBorrow}
-            disabled={disabledBorrow}
           >
             Borrow Book
           </Button>
@@ -61,15 +82,15 @@ export const BookDetailActions: React.FC<Props> = ({
           variant="outline"
           className="h-10 rounded-full px-6"
           onClick={onAddToCart}
+          disabled={disabled}
         >
-          Add to Cart
+          {disabled ? "Adding..." : "Add to cart"}
         </Button>
 
         <Button
           type="button"
           className="h-10 rounded-full px-7"
           onClick={onBorrow}
-          disabled={disabledBorrow}
         >
           Borrow Book
         </Button>

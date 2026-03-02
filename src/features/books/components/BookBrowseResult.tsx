@@ -4,7 +4,7 @@ import React from "react"
 import { BookCard } from "@/features/books/ui/BookCard"
 import { Button } from "@/components/ui/button"
 import { cn } from "@/lib/utils"
-import { useBookListInfinite } from "@/features/books/hooks/useBookListInfinite"
+import { useBookListInfinite } from "@/features/books/hooks"
 import { BooksListFilters } from "@/features/books/types"
 import { BookGridSkeleton } from "@/features/books/ui/skeleton/BookGridSkeleton"
 

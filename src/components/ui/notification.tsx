@@ -1,20 +1,28 @@
 "use client";
 
+import React from "react";
 import Image from "next/image";
 import { cn } from "@/lib/utils";
+import { useCartCount } from "@/features/cart/hooks";
+import { useRouter } from "next/navigation";
+
 
 type NotificationButtonProps = {
-    count?: number;
     className?: string;
 };
 
 export const NotificationButton: React.FC<NotificationButtonProps> = ({
-    count = 0,
     className,
 }) => {
+    const router = useRouter();
+    const { data: count = 0 } = useCartCount();
+    const onClick =() => {
+        router.push("/cart");
+    }
+
     return (
         <div className={cn("relative inline-flex", className)}>
-            <div className="flex h-8 w-8 items-center justify-center rounded-full bg-muted/40">
+            <div className="flex h-8 w-8 items-center justify-center rounded-full bg-muted/40" onClick={onClick}>
                 <Image
                     src="/icons/bag.svg"
                     alt="notification"

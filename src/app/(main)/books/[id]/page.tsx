@@ -15,7 +15,7 @@ const Page = async ({ params }: Props) => {
     if (!Number.isFinite(bookId) || bookId <= 0) return null
 
     return (
-        <div className="pt-32 flex flex-col gap-16">
+        <div className="flex flex-col gap-16">
             <BookDetailContainer bookId={bookId} />
             <Container>
                 <Separator className="w-full" />

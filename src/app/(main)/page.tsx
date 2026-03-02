@@ -8,7 +8,7 @@ import { Container } from "@/shared/components/layout";
 
 export default function MainPage() {
     return (
-        <div className="pt-20 flex flex-col gap-12">
+        <div className="flex flex-col gap-12">
             <Hero />
             <CategoryPicker limit={6} />
             <BookCarousel id="recommandation" title="Recommandation" by="rating" limit={10} />

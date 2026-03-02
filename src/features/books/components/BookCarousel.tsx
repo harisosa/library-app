@@ -3,7 +3,7 @@
 import * as React from "react"
 import { cn } from "@/lib/utils"
 import { Button } from "@/components/ui/button"
-import { useRecommendedBooksInfinite } from "@/features/books/hooks/useRecommendedBooksInfinite"
+import { useRecommendedBooksInfinite } from "@/features/books/hooks"
 import { BookCard } from "@/features/books/ui"
 import { Section } from "@/shared/components/layout"
 import { RecommendationError } from "@/features/books/ui/recommendation"

@@ -6,7 +6,9 @@ import { BookDetailBreadcrumb, BookDetailHeader, BookDetailDescription, BookDeta
 import { Section } from "@/shared/components"
 
 export type BookDetailModel = {
-  title: string
+  id: number;
+  title: string;
+  availableCopies: number;
   authorName: string
   categoryName: string
   rating: number
@@ -19,22 +21,15 @@ export type BookDetailModel = {
 
 type BookDetailProps = {
   data: BookDetailModel
-  onAddToCart?: () => void
-  onBorrow?: () => void
-  disabledBorrow?: boolean
 }
 
-export const BookDetail: React.FC<BookDetailProps> = ({
-  data,
-  onAddToCart,
-  onBorrow,
-  disabledBorrow,
-}) => {
+export const BookDetail: React.FC<BookDetailProps> = ({ data }) => {
+  console.log(data.availableCopies > 0)
   return (
     <Section id='book-detail'>
       <BookDetailBreadcrumb title={data.title} />
 
-      <div className="flex flex-col gap-6 lg:flex-row lg:items-start lg:gap-9 lg:h-124.5">
+      <div className="flex flex-col gap-6 lg:flex-row lg:items-start lg:gap-9">
         <div className="flex flex-col gap-6 lg:flex-row lg:items-start lg:gap-9">
           <div className="flex justify-center lg:justify-start">
             <div className="w-84.25 h-124.5 p-2 bg-muted rounded-xl">
@@ -67,11 +62,7 @@ export const BookDetail: React.FC<BookDetailProps> = ({
 
           <BookDetailDescription description={data.description} />
 
-          <BookDetailActions
-            onAddToCart={onAddToCart}
-            onBorrow={onBorrow}
-            disabledBorrow={disabledBorrow}
-          />
+          <BookDetailActions bookId={data.id} isAvailable={data.availableCopies > 0} />
         </div>
       </div>
     </Section>

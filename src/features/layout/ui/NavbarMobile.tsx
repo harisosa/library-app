@@ -64,7 +64,7 @@ export const NavbarMobile: React.FC<{ isAuthenticated: boolean }> = ({ isAuthent
                                         height: "24px",
                                     }} />
                                 </Button>
-                                <NotificationButton className="h-7 w-7" count={1} />
+                                <NotificationButton className="h-7 w-7" />
 
 
                                 <Button variant="ghost" size="icon" >

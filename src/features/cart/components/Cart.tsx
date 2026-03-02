@@ -2,18 +2,19 @@
 
 import React, { useMemo, useState } from "react";
 import { Checkbox } from "@/components/ui/checkbox";
-import { useCart } from "@/features/cart/hooks";
+import { useCart, useDeleteCartItem } from "@/features/cart/hooks";
 import { BorrowItem, CartSkeleton, LoanSummary } from "@/features/cart/ui";
 import { CartError } from "@/features/cart/ui/CartError";
 import { Section } from "@/shared/components";
 import type { CartItem } from "@/features/cart/types";
-
+import { useRouter } from "next/navigation";
 type CartItemId = CartItem["id"];
 
 export const CartComponent: React.FC = () => {
   const q = useCart();
+  const m = useDeleteCartItem();
 
-
+  const router = useRouter();
 
   const items = useMemo(() => q.data?.items ?? [], [q.data])
 
@@ -42,12 +43,17 @@ export const CartComponent: React.FC = () => {
     });
   };
 
+  const onRemoveItem = (id : number) =>{
+    m.mutateAsync(id)
+  }
+
   const toggleAll = (checked: boolean) => {
     setSelectedIds(checked ? new Set(allIds) : new Set());
   };
 
   if (q.isLoading) return <CartSkeleton />;
   if (q.isError) return <CartError onRetry={q.refetch} />;
+
 
   return (
     <Section id="cart" title="My Cart">
@@ -69,13 +75,14 @@ export const CartComponent: React.FC = () => {
                 item={it}
                 checked={selectedIdsValid.has(it.id)}
                 onCheckedChange={(checked) => toggleOne(it.id, checked)}
+                onRemove={() => onRemoveItem(it.id)}
               />
             ))}
           </div>
         </div>
 
         <div className="w-full lg:w-90">
-          <LoanSummary total={selectedCount} onBorrow={() => { }} />
+          <LoanSummary total={selectedCount} onBorrow={() => {router.push('/checkout') }} />
         </div>
       </div>
     </Section>

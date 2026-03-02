@@ -18,13 +18,12 @@ export const InputWithLabel: React.FC<InputWithLabelProps> = ({
 }) => {
   const [internalError, setInternalError] = useState<string | undefined>();
 
-  // kalau parent kirim error → sync ke internal
   useEffect(() => {
     setInternalError(externalError);
   }, [externalError]);
 
   const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-    setInternalError(undefined); // clear error saat user ngetik
+    setInternalError(undefined);
     onChange?.(e);
   };
 

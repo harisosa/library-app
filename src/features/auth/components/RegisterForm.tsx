@@ -33,7 +33,7 @@ export const RegisterForm: React.FC = () => {
     (field: keyof RegisterFormPayload) =>
     (e: ChangeEvent<HTMLInputElement>) => {
       let value = e.target.value;
-      if (field === "phone") value = value.replace(/\D/g, ""); // numbers only
+      if (field === "phone") value = value.replace(/\D/g, "");
 
       setForm((prev) => ({ ...prev, [field]: value }));
       setErrors((prev) => ({ ...prev, [field]: undefined }));

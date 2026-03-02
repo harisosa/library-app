@@ -2,6 +2,7 @@
 
 import Image from 'next/image'
 import { Container } from '@/shared/components/layout'
+import { usePathname } from 'next/navigation'
 
 type SocialItem = {
     label: string
@@ -17,6 +18,11 @@ const SOCIALS: SocialItem[] = [
 ]
 
 export const Footer = () => {
+    const pathname = usePathname();
+
+    const hideFooter = pathname === "/success";
+    if(hideFooter) return;
+
     return (
         <footer className="w-full bg-white">
             <Container>

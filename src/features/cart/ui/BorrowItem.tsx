@@ -6,8 +6,8 @@ import { CartItem } from "@/features/cart/types";
 
 type Props = {
   item: CartItem;
-  checked: boolean;
-  onCheckedChange: (checked: boolean) => void;
+  checked?: boolean;
+  onCheckedChange?: (checked: boolean) => void;
   onRemove?: (itemId: number) => void;
 };
 
@@ -20,14 +20,18 @@ export const BorrowItem: React.FC<Props> = ({
   const itemDetail = item.book;
 
   return (
-    <div className="flex items-start gap-4 py-6 border-b">
-      <Checkbox
-        className="mt-1"
-        checked={checked}
-        onCheckedChange={(v) => onCheckedChange(Boolean(v))}
-        aria-label={`Select ${itemDetail?.title ?? "book"}`}
-      />
+    <div className="flex items-start gap-4 py-6">
+      {
+        onCheckedChange && (
+          <Checkbox
+            className="mt-1"
+            checked={checked}
+            onCheckedChange={(v) => onCheckedChange(Boolean(v))}
+            aria-label={`Select ${itemDetail?.title ?? "book"}`}
+          />
 
+        )
+      }
       <div className="relative h-23 w-18 rounded-md overflow-hidden bg-muted">
         {itemDetail?.coverImage && (
           <Image
@@ -53,13 +57,18 @@ export const BorrowItem: React.FC<Props> = ({
         </div>
       </div>
 
-      <Button
-        variant="ghost"
-        size="sm"
-        onClick={() => onRemove && onRemove(item.id)}
-      >
-        Remove
-      </Button>
+      {
+        onRemove && (
+          <Button
+            variant="ghost"
+            size="sm"
+            onClick={() => onRemove(item.id)}
+          >
+            Remove
+          </Button>
+        )
+      }
+
     </div>
   );
 };

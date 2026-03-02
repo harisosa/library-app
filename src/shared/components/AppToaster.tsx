@@ -8,7 +8,6 @@ export const AppToaster = () => {
       position="top-right"
       closeButton
       richColors
-      // offset dari atas & kanan (biar kayak gambar 2)
       toastOptions={{
         classNames: {
           toast:

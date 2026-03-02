@@ -1,6 +1,3 @@
-"use client";
-
-
 import { Footer } from "@/features/layout/components/Footer";
 import { Navbar } from "@/features/layout/components/navbar";
 import React from "react";

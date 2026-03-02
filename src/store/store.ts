@@ -17,7 +17,7 @@ const persistConfig = {
   key: "library_app",
   version: 1,
   storage,
-  whitelist: ["auth"], // persist auth (token + user)
+  whitelist: ["auth"],
 };
 
 const persistedReducer = persistReducer(persistConfig, rootReducer);

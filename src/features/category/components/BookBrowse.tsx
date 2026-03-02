@@ -16,11 +16,11 @@ export const BookBrowse: React.FC<BookBrowseProps> = ({
   categoryId,
   query,
 }) => {
-  const { data , isLoading: isLoadingCategories } =
+  const { data, isLoading: isLoadingCategories } =
     useCategories()
 
- const categories = data?.categories ?? [];
- const [selectedCategoryIds, setSelectedCategoryIds] = React.useState<number[]>(
+  const categories = data?.categories ?? [];
+  const [selectedCategoryIds, setSelectedCategoryIds] = React.useState<number[]>(
     () => (categoryId ? [categoryId] : [])
   )
 
@@ -46,32 +46,29 @@ export const BookBrowse: React.FC<BookBrowseProps> = ({
   }, [])
 
   const filters = React.useMemo(
-  () => ({
-    q: query || undefined,
-    categoryId: selectedCategoryIds[0],
-    minRating: selectedRatings.length ? Math.min(...selectedRatings) : undefined,
-  }),
-  [query, selectedCategoryIds, selectedRatings]
-)
+    () => ({
+      q: query || undefined,
+      categoryId: selectedCategoryIds[0],
+      minRating: selectedRatings.length ? Math.min(...selectedRatings) : undefined,
+    }),
+    [query, selectedCategoryIds, selectedRatings]
+  )
 
 
   return (
     <Section id='book-list' title="Book List" className="lg:gap-8" >
-    <div className="flex gap-6">
-      <BookListFilter
-        className="w-65 shrink-0"
-        categories={categories}
-        selectedCategoryIds={selectedCategoryIds}
-        onToggleCategory={onToggleCategory}
-        selectedRatings={selectedRatings}
-        onToggleRating={onToggleRating}
-        isLoading={isLoadingCategories}
-      />
-
-      <div className="flex-1">
-          <BookBrowseResult filters={filters} />
+      <div className="flex gap-6 flex-col lg:flex-row">
+        <BookListFilter
+          className="w-full lg:w-65 shrink-0"
+          categories={categories}
+          selectedCategoryIds={selectedCategoryIds}
+          onToggleCategory={onToggleCategory}
+          selectedRatings={selectedRatings}
+          onToggleRating={onToggleRating}
+          isLoading={isLoadingCategories}
+        />
+        <BookBrowseResult filters={filters} />
       </div>
-    </div>
     </Section>
   )
 }

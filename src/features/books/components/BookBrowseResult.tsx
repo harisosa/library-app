@@ -27,11 +27,10 @@ export const BookBrowseResult: React.FC<BookBrowseResultProps> = ({ filters, cla
     }
 
     const books = q.data?.pages.flatMap((p) => p.books) ?? []
-    if(books.length === 0) {
- return (
-            <div className={cn("rounded-xl border p-6", className)}>
-                <p className="text-sm text-muted-foreground">Books Not Fuound</p>
-            </div>
+    if (books.length === 0) {
+        return (
+            <p className="text-sm text-muted-foreground">Books Not Fuound</p>
+
         )
     }
     return (

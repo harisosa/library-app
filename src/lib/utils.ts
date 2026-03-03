@@ -29,3 +29,8 @@ export const formatDate = (iso: string) => {
 };
 
 
+export const toInt = (v: string) => {
+  const n = Number(v);
+  return Number.isFinite(n) ? n : 0;
+};
+

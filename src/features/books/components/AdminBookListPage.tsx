@@ -29,8 +29,7 @@ export const AdminBookListPage: React.FC = () => {
   })
 
   const handleAdd = () => {
-    // TODO: router.push("/admin/books/new")
-    // keep it empty for now
+
   }
 
   const handlePreview = (id: number) => {
@@ -38,12 +37,11 @@ export const AdminBookListPage: React.FC = () => {
   }
 
   const handleEdit = (id: number) => {
-    // TODO: router.push(`/admin/books/${id}/edit`)
-    console.log("edit", id)
+
+   router.push(`/admin/edit/${id}`)
   }
 
   const handleDelete = (id: number) => {
-    // TODO: open confirm dialog then call delete mutation
     console.log("delete", id)
   }
 

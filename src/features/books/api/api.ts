@@ -1,5 +1,5 @@
 import { api } from "@/lib/http"
-import type { BookDetail, BooksListFilters, BookStatus, ListBookPagniation, RecommendBooksResponse, RecommendMode } from "../types"
+import type { Book, BookDetail, BooksListFilters, BookUpsertValues, ListBookPagination, RecommendBooksResponse, RecommendMode, UpdateBookPayload } from "../types"
 
 export type GetRecommendedBooksParams = {
   by?: RecommendMode
@@ -35,8 +35,8 @@ export const getBookDetail = async (bookId: number): Promise<BookDetail> => {
 
 }
 
-export const getBooks = async (params: BooksListFilters): Promise<ListBookPagniation> => {
-  return await api<ListBookPagniation>({
+export const getBooks = async (params: BooksListFilters): Promise<ListBookPagination> => {
+  return await api<ListBookPagination>({
     method: "GET",
     url: "/books",
     params,
@@ -44,9 +44,22 @@ export const getBooks = async (params: BooksListFilters): Promise<ListBookPagnia
 }
 
 export const getAdminBooks = (params: BooksListFilters) => {
-  return api<ListBookPagniation>({
+  return api<ListBookPagination>({
     method: "GET",
     url: "/admin/books",
     params,
   })
 }
+
+export const updateBook = async (args: {
+  id: number;
+  payload: BookUpsertValues;
+}): Promise<Book> => {
+  const { id, payload } = args;
+
+  return api<Book>({
+    method: "PUT",
+    url: `/books/${id}`,
+    data: payload,
+  });
+};

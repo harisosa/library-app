@@ -23,3 +23,8 @@ export const formatDateTime = (iso: string) => {
   const d = dayjs(iso);
   return d.isValid() ? d.format("D MMMM YYYY, HH:mm") : "-";
 };
+
+export const formatDate = (iso: string) => {
+  const d = dayjs(iso);
+  return d.isValid() ? d.format("D MMMM YYYY") : "-";
+};

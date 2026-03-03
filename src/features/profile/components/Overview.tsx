@@ -23,7 +23,7 @@ export const Overview: React.FC = () => {
   const profile: MyProfile = meQ.data.profile;
 
   return (
-    <div className="mt-6 w-139.25">
+    <div className="mt-6 lg:w-139.25">
       <h1 className="text-2xl font-semibold">Profile</h1>
 
       <div className="mt-6 rounded-2xl bg-white p-6 shadow-sm">

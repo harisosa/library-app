@@ -10,3 +10,10 @@ export const getMyLoans = async (
     params,
   });
 };
+
+export const returnLoan = (loanId: number) => {
+  return api<void>({
+    method: 'PATCH',
+    url: `/loans/${loanId}/return`,
+  })
+}

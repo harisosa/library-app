@@ -2,6 +2,7 @@ import * as React from "react";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import { BorrowedList } from "@/features/loan/components/BorrowList";
 import { Overview } from "@/features/profile/components";
+import { MyReviews } from "@/features/review/components/MyReview";
 
 
 type Props = {
@@ -9,14 +10,6 @@ type Props = {
         tab?: string;
     };
 };
-
-
-const ReviewsSection: React.FC = () => (
-    <div className="rounded-2xl border bg-background p-6">
-        <div className="text-base font-semibold">Reviews</div>
-        <div className="mt-1 text-sm text-muted-foreground">TODO: Reviews UI</div>
-    </div>
-);
 
 export default async function  ProfilePage({ searchParams }: Props) {
     const params = await searchParams;
@@ -46,7 +39,7 @@ export default async function  ProfilePage({ searchParams }: Props) {
                 </TabsContent>
 
                 <TabsContent value="reviews" className="mt-8">
-                    <ReviewsSection />
+                    <MyReviews />
                 </TabsContent>
             </Tabs>
         </div>

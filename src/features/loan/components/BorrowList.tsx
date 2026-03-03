@@ -1,16 +1,19 @@
 "use client";
 
-import * as React from "react";
+import React, { useEffect, useMemo, useState } from "react";
 import type { LoanStatusTab } from "../types";
-import { useMyLoansInfinite } from "../hooks/useMyLoansInfinite";
 import { SearchInput } from "@/components/ui/search-input";
 import { BorrowedListError, BorrowedListSkeleton, LoanCard, StatusTabs } from "@/features/loan/ui";
 import { LoadMoreButton } from "@/components/ui/load-more-button";
+import { ConfirmationDialog } from "@/components/ui/confirmation-dialog";
+import { Button } from "@/components/ui/button";
+import { useReturnLoan, useMyLoansInfinite } from "@/features/loan/hooks";
+import { GiveReviewDialog } from "@/features/review/components/GiveReviewDialog";
 
 const useDebouncedValue = <T,>(value: T, delayMs: number) => {
-  const [debounced, setDebounced] = React.useState<T>(value);
+  const [debounced, setDebounced] = useState<T>(value);
 
-  React.useEffect(() => {
+  useEffect(() => {
     const t = window.setTimeout(() => setDebounced(value), delayMs);
     return () => window.clearTimeout(t);
   }, [value, delayMs]);
@@ -19,14 +22,20 @@ const useDebouncedValue = <T,>(value: T, delayMs: number) => {
 };
 
 export const BorrowedList: React.FC = () => {
-  const [status, setStatus] = React.useState<LoanStatusTab>("all");
-  const [search, setSearch] = React.useState("");
+  const { mutate, isPending } = useReturnLoan()
+  const [status, setStatus] = useState<LoanStatusTab>("all");
+  const [search, setSearch] = useState("");
+
+  const [openConfirmation, setOpenConfirmationDialog] = useState(false);
+  const [openDialogReview, setOpenDialogReview] = useState(false)
+  const [loanId, setLoanId] = useState<number|null>(null)
+  const [bookId, setBookId] = useState<number | null> (null)
 
   const q = useDebouncedValue(search, 350);
 
   const loansQ = useMyLoansInfinite({ status, q, limit: 10 });
 
-  const loans = React.useMemo(() => {
+  const loans = useMemo(() => {
     const pages = loansQ.data?.pages ?? [];
     return pages.flatMap((p) => p.loans);
   }, [loansQ.data]);
@@ -38,6 +47,16 @@ export const BorrowedList: React.FC = () => {
 
   if(isInitialLoading)return <BorrowedListSkeleton />;
   if(isError) return          <BorrowedListError title="Failed to load borrowed list" description="Please try again." onRetry={() => loansQ.refetch()} />
+
+   const handleReturnConfirm = () => {
+    if(!loanId) return 
+    mutate(loanId, {
+      onSuccess: () => {
+        setOpenConfirmationDialog(false)
+        setLoanId(null);
+      },
+    })
+  }
 
   return (
     <div className="mx-auto w-full max-w-5xl px-4 py-8 sm:px-6">
@@ -66,9 +85,13 @@ export const BorrowedList: React.FC = () => {
               <LoanCard
                 key={loan.id}
                 loan={loan}
-                onGiveReview={({ loanId, bookId }) => {
-                  // TODO: wiring modal/navigate sesuai flow kamu
-                  console.log("give review", { loanId, bookId });
+                onGiveReview={(bookId: number ) => {
+                  setBookId(bookId);
+                  setOpenDialogReview(true);
+                }}
+                onReturn={(id:number)=>{
+                  setLoanId(id);
+                  setOpenConfirmationDialog(true);
                 }}
               />
             ))
@@ -84,6 +107,18 @@ export const BorrowedList: React.FC = () => {
           />
         </div>
       ) : null}
+
+    <ConfirmationDialog
+        open={openConfirmation}
+        onOpenChange={setOpenConfirmationDialog}
+        title="Return Book"
+        description="Once returned, you won't be able to undo this action."
+        cancelText="Cancel"
+        confirmText="Confirm"
+        isConfirmLoading={isPending}
+        onConfirm={handleReturnConfirm}
+      />
+      <GiveReviewDialog open={openDialogReview} onOpenChange={setOpenDialogReview} bookId={bookId ?? 0} />
     </div>
   );
 };

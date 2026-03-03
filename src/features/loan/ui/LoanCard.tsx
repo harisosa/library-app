@@ -5,18 +5,19 @@ import { Separator } from "@/components/ui/separator";
 import { Badge } from "@/components/ui/badge";
 import type { Loan } from "../types";
 import { StatusBadge } from "@/features/loan/ui/StatusBadge";
-import { formatDateTime } from "@/lib/utils";
+import { formatDate } from "@/lib/utils";
 
 type Props = {
   loan: Loan;
-  onGiveReview?: (args: { loanId: number; bookId: number }) => void;
+  onGiveReview?: (bookId: number) => void;
+  onReturn?: (loanId: number) => void;
   className?: string;
 };
 
 
-export const LoanCard: React.FC<Props> = ({ loan, onGiveReview, className }) => {
-  const borrowedLabel = formatDateTime(loan.borrowedAt);
-  const dueLabel = formatDateTime(loan.dueAt);
+export const LoanCard: React.FC<Props> = ({ loan, onGiveReview, onReturn, className }) => {
+  const borrowedLabel = formatDate(loan.borrowedAt);
+  const dueLabel = formatDate(loan.dueAt);
 
   return (
     <div
@@ -79,13 +80,27 @@ export const LoanCard: React.FC<Props> = ({ loan, onGiveReview, className }) => 
         </div>
 
         <div className="shrink-0">
-          <Button
+          {loan.returnedAt ? (
+                      <Button
             type="button"
             className="h-10 rounded-full px-6"
-            onClick={() => onGiveReview?.({ loanId: loan.id, bookId: loan.book.id })}
+            onClick={() => onGiveReview && onGiveReview(loan.book.id)}
           >
             Give Review
           </Button>
+          )
+        : (
+           <Button
+            type="button"
+            variant="outline"
+            className="h-10 rounded-full px-6"
+            onClick={() => onReturn && onReturn(loan.id)}
+          >
+            Return
+          </Button>
+        )
+        }
+
         </div>
       </div>
     </div>

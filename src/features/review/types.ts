@@ -1,3 +1,6 @@
+import { Book } from "@/features/books/types";
+import { Pagination } from "@/types/pagination";
+
 export type ReviewUser = {
   id: number;
   name: string;
@@ -13,13 +16,6 @@ export type Review = {
   user: ReviewUser;
 };
 
-export type Pagination = {
-  page: number;
-  limit: number;
-  total: number;
-  totalPages: number;
-};
-
 export type BookReviewsData = {
   bookId: number;
   reviews: Review[];
@@ -31,3 +27,31 @@ export type GetBookReviewsParams = {
   page: number;
   limit: number;
 };
+
+export interface CreateReviewPayload {
+  bookId: number
+  star: number
+  comment: string
+}
+
+
+export interface MyReview {
+  id: number
+  star: number
+  comment: string
+  createdAt: string
+  book: Book
+}
+
+
+export interface MyReviewsData {
+  reviews: MyReview[]
+  pagination: Pagination
+}
+
+export type GetMyReviewsParams = {
+  q?: string
+  page: number
+  limit: number
+}
+

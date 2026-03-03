@@ -44,7 +44,7 @@ export const SuccessComponent: React.FC = () => {
 
                     <div className="mt-8 w-full space-y-3">
                         <Button className="w-full rounded-full" asChild>
-                            <a href="/loans">View My Loans</a>
+                            <a href="'/profile?tab=borrowed'">View My Loans</a>
                         </Button>
 
                         <Button className="w-full rounded-full bg-[#1C65DA]" variant="outline" asChild

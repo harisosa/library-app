@@ -20,14 +20,15 @@ export type BookDetailModel = {
 }
 
 type BookDetailProps = {
-  data: BookDetailModel
+  data: BookDetailModel,
+  isPreview?: boolean
 }
 
-export const BookDetail: React.FC<BookDetailProps> = ({ data }) => {
-  console.log(data.availableCopies > 0)
+export const BookDetail: React.FC<BookDetailProps> = ({ data,isPreview }) => {
   return (
     <Section id='book-detail'>
-      <BookDetailBreadcrumb title={data.title} />
+      {!isPreview && (<BookDetailBreadcrumb title={data.title} />)}
+      
 
       <div className="flex flex-col gap-6 lg:flex-row lg:items-start lg:gap-9">
         <div className="flex flex-col gap-6 lg:flex-row lg:items-start lg:gap-9">
@@ -62,7 +63,7 @@ export const BookDetail: React.FC<BookDetailProps> = ({ data }) => {
 
           <BookDetailDescription description={data.description} />
 
-          <BookDetailActions bookId={data.id} isAvailable={data.availableCopies > 0} />
+          <BookDetailActions bookId={data.id} isAvailable={data.availableCopies > 0} isPreview={isPreview} />
         </div>
       </div>
     </Section>

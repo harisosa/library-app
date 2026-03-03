@@ -9,12 +9,14 @@ type BookDetailActionsProps = {
   bookId: number;
   className?: string;
   isAvailable?: boolean;
+  isPreview?: boolean;
 }
 
 export const BookDetailActions: React.FC<BookDetailActionsProps> = ({
   bookId,
   className,
-  isAvailable
+  isAvailable,
+  isPreview
 }) => {
 
 
@@ -22,9 +24,9 @@ export const BookDetailActions: React.FC<BookDetailActionsProps> = ({
   const {mutateAsync, isPending} = useAddCartItem();
 
   const inCart = useIsBookInCart(bookId);
-  if (inCart.data === true) return <div className="w-full p-1 bg-muted  mt-3 text-center"><span>Book already in cart</span></div>;
+  if ((inCart.data === true) && !isPreview) return <div className="w-full p-1 bg-muted  mt-3 text-center"><span>Book already in cart</span></div>;
 
-  if(!isAvailable) return <div className="w-full p-1 bg-muted  mt-3 text-center"><span>No Available copy</span></div>;
+  if(!isAvailable && !isPreview) return <div className="w-full p-1 bg-muted  mt-3 text-center"><span>No Available copy</span></div>;
 
   const disabled = isPending || inCart.isLoading;
 
@@ -56,13 +58,14 @@ export const BookDetailActions: React.FC<BookDetailActionsProps> = ({
             variant="outline"
             className="h-10 flex-1 rounded-full px-6"
             onClick={onAddToCart}
-            disabled={disabled}
+            disabled={disabled || isPreview}
           >
             {disabled ? "Adding..." : "Add to cart"}
           </Button>
 
           <Button
             type="button"
+            disabled={isPreview}
             className="h-10 flex-1 rounded-full px-7"
             onClick={onBorrow}
           >
@@ -82,7 +85,7 @@ export const BookDetailActions: React.FC<BookDetailActionsProps> = ({
           variant="outline"
           className="h-10 rounded-full px-6"
           onClick={onAddToCart}
-          disabled={disabled}
+          disabled={disabled || isPreview}
         >
           {disabled ? "Adding..." : "Add to cart"}
         </Button>
@@ -91,6 +94,7 @@ export const BookDetailActions: React.FC<BookDetailActionsProps> = ({
           type="button"
           className="h-10 rounded-full px-7"
           onClick={onBorrow}
+          disabled={isPreview}
         >
           Borrow Book
         </Button>

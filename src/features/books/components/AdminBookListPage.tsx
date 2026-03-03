@@ -8,10 +8,13 @@ import { useDebounce } from "@/lib"
 import { Button } from "@/components/ui/button"
 import { SearchInput } from "@/components/ui/search-input"
 import { PaginationBar } from "@/shared/components/PaginationBar"
+import { useRouter } from "next/navigation"
 
 
 export const AdminBookListPage: React.FC = () => {
   const [status, setStatus] = React.useState<AdminBookStatusUI>("all")
+  const router = useRouter();
+
   const [q, setQ] = useState("")
   const debouncedQ = useDebounce(q, 400)
 
@@ -31,8 +34,7 @@ export const AdminBookListPage: React.FC = () => {
   }
 
   const handlePreview = (id: number) => {
-    // TODO: open preview modal or route
-    console.log("preview", id)
+    router.push(`/admin/preview/${id}`)
   }
 
   const handleEdit = (id: number) => {

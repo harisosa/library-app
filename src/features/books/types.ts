@@ -1,5 +1,7 @@
 import { Pagination } from "@/types/pagination"
 
+export type BookStatus =  "all" | "available" | "borrowed" | "returned"
+
 export type Book = {
   id: number
   title: string
@@ -85,6 +87,7 @@ export type BookDetail = {
 
 export type BooksListFilters = {
   q?: string
+  status? : BookStatus;
   categoryId?: number
   authorId?: number
   minRating?: number

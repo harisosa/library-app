@@ -15,9 +15,7 @@ type LoginErrors = Partial<Record<keyof LoginFormState, string>>;
 
 export const LoginForm: React.FC = () => {
   const router = useRouter();
-  const { mutate, isPending } = useLogin({
-    onSuccess: () => router.replace("/"),
-  });
+  const { mutate, isPending } = useLogin();
 
   const [form, setForm] = useState<LoginFormState>({ email: "", password: "" });
   const [errors, setErrors] = useState<LoginErrors>({});

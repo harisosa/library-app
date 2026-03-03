@@ -3,7 +3,7 @@ import { cn } from '@/lib/utils';
 import Link from 'next/link';
 
 type GuestActionsProps = {
-  className: string;
+  className?: string;
 }
 
 export const GuestActions: React.FC<GuestActionsProps> = ({ className }) => {

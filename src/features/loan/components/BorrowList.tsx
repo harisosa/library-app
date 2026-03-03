@@ -1,25 +1,16 @@
 "use client";
 
-import React, { useEffect, useMemo, useState } from "react";
+import React, { useMemo, useState } from "react";
 import type { LoanStatusTab } from "../types";
 import { SearchInput } from "@/components/ui/search-input";
 import { BorrowedListError, BorrowedListSkeleton, LoanCard, StatusTabs } from "@/features/loan/ui";
 import { LoadMoreButton } from "@/components/ui/load-more-button";
 import { ConfirmationDialog } from "@/components/ui/confirmation-dialog";
-import { Button } from "@/components/ui/button";
+
 import { useReturnLoan, useMyLoansInfinite } from "@/features/loan/hooks";
 import { GiveReviewDialog } from "@/features/review/components/GiveReviewDialog";
+import { useDebounce } from "@/lib";
 
-const useDebouncedValue = <T,>(value: T, delayMs: number) => {
-  const [debounced, setDebounced] = useState<T>(value);
-
-  useEffect(() => {
-    const t = window.setTimeout(() => setDebounced(value), delayMs);
-    return () => window.clearTimeout(t);
-  }, [value, delayMs]);
-
-  return debounced;
-};
 
 export const BorrowedList: React.FC = () => {
   const { mutate, isPending } = useReturnLoan()
@@ -31,7 +22,7 @@ export const BorrowedList: React.FC = () => {
   const [loanId, setLoanId] = useState<number|null>(null)
   const [bookId, setBookId] = useState<number | null> (null)
 
-  const q = useDebouncedValue(search, 350);
+  const q = useDebounce(search, 350);
 
   const loansQ = useMyLoansInfinite({ status, q, limit: 10 });
 

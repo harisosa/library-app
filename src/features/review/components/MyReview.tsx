@@ -1,6 +1,6 @@
 'use client'
 
-import React, { useEffect, useState } from 'react'
+import React, { useState } from 'react'
 import { Button } from '@/components/ui/button'
 import { useMyReviewsInfinite } from '@/features/review/hooks/useMyReviewsInfinite'
 import type { MyReview } from '@/features/review/types'
@@ -8,21 +8,12 @@ import { MyReviewsSkeleton } from '@/features/review/ui/skeleton/MyReveiwSkeleto
 import { MyReviewsError } from '@/features/review/ui/error/MyReviewError'
 import { SearchInput } from '@/components/ui/search-input'
 import { MyReviewsList } from '@/features/review/ui/MyReviewList'
+import { useDebounce } from '@/lib'
 
-const useDebouncedValue = <T,>(value: T, delayMs: number) => {
-  const [debounced, setDebounced] = useState(value)
-
-  useEffect(() => {
-    const t = window.setTimeout(() => setDebounced(value), delayMs)
-    return () => window.clearTimeout(t)
-  }, [value, delayMs])
-
-  return debounced
-}
 
 export const MyReviews: React.FC = () => {
   const [qInput, setQInput] = useState('')
-  const q = useDebouncedValue(qInput, 350)
+  const q = useDebounce(qInput, 350)
 
   const reviewsQ = useMyReviewsInfinite({ q, limit: 20 })
 

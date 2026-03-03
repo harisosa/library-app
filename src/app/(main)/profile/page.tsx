@@ -3,6 +3,7 @@ import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import { BorrowedList } from "@/features/loan/components/BorrowList";
 import { Overview } from "@/features/profile/components";
 import { MyReviews } from "@/features/review/components/MyReview";
+import { Section } from "@/shared/components";
 
 
 type Props = {
@@ -16,16 +17,16 @@ export default async function  ProfilePage({ searchParams }: Props) {
     const tab = params?.tab ?? 'profile';
 
     return (
-        <div className="mx-auto w-full max-w-5xl px-4 py-8 sm:px-6">
-            <Tabs defaultValue={tab}>
-                <TabsList className="h-10 rounded-full bg-muted p-1">
-                    <TabsTrigger value="profile" className="rounded-full px-6">
+       <Section id='profile' >
+           <Tabs defaultValue={tab}>
+                <TabsList className="h-10 bg-muted p-1">
+                    <TabsTrigger value="profile" className="px-6">
                         Profile
                     </TabsTrigger>
-                    <TabsTrigger value="borrowed" className="rounded-full px-6">
+                    <TabsTrigger value="borrowed" className=" px-6">
                         Borrowed List
                     </TabsTrigger>
-                    <TabsTrigger value="reviews" className="rounded-full px-6">
+                    <TabsTrigger value="reviews" className="px-6">
                         Reviews
                     </TabsTrigger>
                 </TabsList>
@@ -42,6 +43,8 @@ export default async function  ProfilePage({ searchParams }: Props) {
                     <MyReviews />
                 </TabsContent>
             </Tabs>
-        </div>
+       </Section>
+ 
+
     );
 }

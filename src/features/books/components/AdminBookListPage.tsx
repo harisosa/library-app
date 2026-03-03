@@ -3,22 +3,26 @@
 import React, { useState } from "react"
 import { useAdminBooks } from "@/features/books/hooks/useAdminBooks"
 import { mapStatusUiToApi, type AdminBookStatusUI } from "../ui/admin/status"
-import { AdminBooksListSkeleton, AdminBooksError, AdminBooksEmpty, AdminBooksList, AdminBooksStatusTabs} from "@/features/books/ui/admin"
+import { AdminBooksListSkeleton, AdminBooksError, AdminBooksEmpty, AdminBooksList, AdminBooksStatusTabs } from "@/features/books/ui/admin"
 import { useDebounce } from "@/lib"
 import { Button } from "@/components/ui/button"
 import { SearchInput } from "@/components/ui/search-input"
 import { PaginationBar } from "@/shared/components/PaginationBar"
 import { useRouter } from "next/navigation"
+import { ConfirmationDialog } from "@/components/ui/confirmation-dialog"
+import { useDeleteBook } from "@/features/books/hooks/useDeleteBook"
 
 
 export const AdminBookListPage: React.FC = () => {
   const [status, setStatus] = React.useState<AdminBookStatusUI>("all")
   const router = useRouter();
 
+  const [openConfirmation, setOpenConfirmationDialog] = useState(false);
+  const [selectedId, setSelectedId] = useState<number>(-1);
   const [q, setQ] = useState("")
   const debouncedQ = useDebounce(q, 400)
 
-   const [page, setPage] = React.useState(1)
+  const [page, setPage] = React.useState(1)
   const limit = 20;
 
   const booksQ = useAdminBooks({
@@ -27,6 +31,8 @@ export const AdminBookListPage: React.FC = () => {
     page,
     limit,
   })
+
+  const deleteM = useDeleteBook();
 
   const handleAdd = () => {
 
@@ -38,36 +44,37 @@ export const AdminBookListPage: React.FC = () => {
 
   const handleEdit = (id: number) => {
 
-   router.push(`/admin/edit/${id}`)
+    router.push(`/admin/edit/${id}`)
   }
 
-  const handleDelete = (id: number) => {
-    console.log("delete", id)
+  const handleDelete = () => {
+    deleteM.mutateAsync(selectedId);
   }
+
+
 
   return (
-    <div className="space-y-6">
-    <div className="space-y-4">
-      <div className="text-2xl font-bold text-foreground">Book List</div>
+    <><div className="space-y-6">
+      <div className="space-y-4">
+        <div className="text-2xl font-bold text-foreground">Book List</div>
 
-      <div className="w-full md:w-150 space-y-3">
-        <Button className="w-full md:w-62.5 rounded-full h-12" onClick={handleAdd}>
-          Add Book
-        </Button>
+        <div className="w-full md:w-150 space-y-3">
+          <Button className="w-full md:w-62.5 rounded-full h-12" onClick={handleAdd}>
+            Add Book
+          </Button>
 
-        <SearchInput
-          value={q}
-          onChange={(e) => setQ(e.target.value)}
-          placeholder="Search book"
-        />
+          <SearchInput
+            value={q}
+            onChange={(e) => setQ(e.target.value)}
+            placeholder="Search book" />
 
-        <div className="overflow-x-auto">
-          <div className="min-w-max">
-            <AdminBooksStatusTabs value={status} onChange={setStatus} />
+          <div className="overflow-x-auto">
+            <div className="min-w-max">
+              <AdminBooksStatusTabs value={status} onChange={setStatus} />
+            </div>
           </div>
         </div>
       </div>
-    </div>
 
       {booksQ.isLoading ? (
         <AdminBooksListSkeleton />
@@ -81,16 +88,30 @@ export const AdminBookListPage: React.FC = () => {
             books={booksQ.data?.books ?? []}
             onPreview={handlePreview}
             onEdit={handleEdit}
-            onDelete={handleDelete}
-          />
+            onDelete={(id) => {
+              setSelectedId(id)
+              setOpenConfirmationDialog(true);
+            }} />
         </>
       )}
 
       <PaginationBar
-            page={booksQ.data?.pagination.page ?? page}
-            totalPages={booksQ.data?.pagination.totalPages ?? 1}
-            onPageChange={setPage}
-          />
+        page={booksQ.data?.pagination.page ?? page}
+        totalPages={booksQ.data?.pagination.totalPages ?? 1}
+        onPageChange={setPage} />
     </div>
+
+      <ConfirmationDialog
+        open={openConfirmation}
+        onOpenChange={setOpenConfirmationDialog}
+        title="Delete Data"
+        description="Once deleted, you won’t be able to recover this data."
+        cancelText="Cancel"
+        confirmText="Confirm"
+        confirmClassName="bg-[#D9206E]"
+        isConfirmLoading={deleteM.isPending}
+        onConfirm={handleDelete} />
+
+    </>
   )
 }

@@ -63,3 +63,10 @@ export const updateBook = async (args: {
     data: payload,
   });
 };
+
+export const deleteBook = async (id: number): Promise<void> => {
+  await api<void>({
+    method: 'DELETE',
+    url: `/books/${id}`,
+  })
+}

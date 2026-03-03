@@ -25,7 +25,7 @@ export const EditBookComponent: React.FC<{ bookId: number }> = ({ bookId }) => {
 
     const onSubmit = async (values: BookUpsertValues) => {
         await updateBookM.mutateAsync({ id: book?.id ?? 0, payload: values });
-        router.back()
+        router.push('/admin?tab=books')
     };
 
 
@@ -40,7 +40,7 @@ export const EditBookComponent: React.FC<{ bookId: number }> = ({ bookId }) => {
                     type="button"
                     variant="ghost"
                     size="icon"
-                    onClick={() => router.back()}
+                    onClick={() => router.push('/admin?tab=books')}
                 >
                     <ArrowLeft className="size-7" />
 

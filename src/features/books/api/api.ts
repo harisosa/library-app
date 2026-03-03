@@ -1,5 +1,5 @@
 import { api } from "@/lib/http"
-import type { Book, BookDetail, BooksListFilters, BookUpsertValues, ListBookPagination, RecommendBooksResponse, RecommendMode, UpdateBookPayload } from "../types"
+import type { Book, BookDetail, BooksListFilters, BookUpsertValues, CreateBookFormDataFields, ListBookPagination, RecommendBooksResponse, RecommendMode, UpdateBookPayload } from "../types"
 
 export type GetRecommendedBooksParams = {
   by?: RecommendMode
@@ -68,5 +68,30 @@ export const deleteBook = async (id: number): Promise<void> => {
   await api<void>({
     method: 'DELETE',
     url: `/books/${id}`,
+  })
+}
+
+export const addBook = async (
+  payload: CreateBookFormDataFields
+): Promise<void> => {
+  const formData = new FormData()
+
+  formData.append('title', payload.title)
+  formData.append('description', payload.description)
+  formData.append('isbn', payload.isbn)
+  formData.append('authorName', payload.authorName)
+  formData.append('categoryId', String(payload.categoryId))
+  formData.append('publishedYear', String(payload.publishedYear))
+  formData.append('totalCopies', String(payload.totalCopies))
+  formData.append('availableCopies', String(payload.availableCopies))
+
+  if (payload.coverImage) {
+    formData.append('coverImage', payload.coverImage)
+  }
+
+  await api<void>({
+    method: 'POST',
+    url: '/books',
+    data: formData,
   })
 }

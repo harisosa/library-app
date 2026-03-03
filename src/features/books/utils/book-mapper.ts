@@ -21,7 +21,7 @@ export const toUpsertValues = (book: BookDetail): BookUpsertValues => ({
 export const toCreatePayload = (v: BookUpsertValues): CreateBookFormDataFields => ({
   title: v.title.trim(),
   description: v.description.trim(),
-  isbn: v.isbn.trim(),
+  isbn: generateIndonesianISBN13(),
   publishedYear: v.publishedYear,
 
   authorId: v.authorId,
@@ -51,3 +51,24 @@ export const getBookUpsertInitValue = (): BookUpsertValues => ({
   coverPreviewUrl: null,
   coverImageUrl: null,
 });
+
+
+export const generateIndonesianISBN13 = (): string => {
+  const prefix = '978979'
+
+  const randomPart = Array.from({ length: 6 })
+    .map(() => Math.floor(Math.random() * 10))
+    .join('')
+
+  const partial = prefix + randomPart
+
+  const digits = partial.split('').map(Number)
+
+  const sum = digits.reduce((acc, digit, index) => {
+    return acc + digit * (index % 2 === 0 ? 1 : 3)
+  }, 0)
+
+  const checkDigit = (10 - (sum % 10)) % 10
+
+  return partial + checkDigit
+}

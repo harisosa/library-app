@@ -35,7 +35,7 @@ export const AdminBookListPage: React.FC = () => {
   const deleteM = useDeleteBook();
 
   const handleAdd = () => {
-
+    router.push(`/admin/add`)
   }
 
   const handlePreview = (id: number) => {

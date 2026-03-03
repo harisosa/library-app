@@ -1,6 +1,7 @@
 import * as React from "react";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import { BorrowedList } from "@/features/loan/components/BorrowList";
+import { Overview } from "@/features/profile/components";
 
 
 type Props = {
@@ -10,15 +11,6 @@ type Props = {
 };
 
 
-
-const ProfileSection: React.FC = () => (
-    <div className="rounded-2xl border bg-background p-6">
-        <div className="text-base font-semibold">Profile</div>
-        <div className="mt-1 text-sm text-muted-foreground">TODO: Profile UI</div>
-    </div>
-);
-
-
 const ReviewsSection: React.FC = () => (
     <div className="rounded-2xl border bg-background p-6">
         <div className="text-base font-semibold">Reviews</div>
@@ -26,8 +18,10 @@ const ReviewsSection: React.FC = () => (
     </div>
 );
 
-export default function ProfilePage({ searchParams }: Props) {
-    const tab = searchParams?.tab ?? "profile";
+export default async function  ProfilePage({ searchParams }: Props) {
+    const params = await searchParams;
+    const tab = params?.tab ?? 'profile';
+
     return (
         <div className="mx-auto w-full max-w-5xl px-4 py-8 sm:px-6">
             <Tabs defaultValue={tab}>
@@ -44,7 +38,7 @@ export default function ProfilePage({ searchParams }: Props) {
                 </TabsList>
 
                 <TabsContent value="profile" className="mt-8">
-                    <ProfileSection />
+                    <Overview />
                 </TabsContent>
 
                 <TabsContent value="borrowed" className="mt-8">

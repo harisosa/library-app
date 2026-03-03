@@ -9,15 +9,14 @@ import { NAVBAR_DROPDOWN_MENU } from '@/features/layout/constants';
 import { Button } from '@/components/ui/button';
 import { NotificationButton } from '@/components/ui/notification';
 import { Avatar, AvatarFallback, AvatarImage } from '@/components/ui/avatar';
-import { selectAuthUser, selectRole } from '@/features/auth/store';
-import { useAppSelector } from '@/store/hooks';
 import { getInitials } from '@/lib/utils';
+import { useMe } from '@/features/profile/hooks';
 
 
 export const UserMenu: React.FC = () => {
-  const user = useAppSelector(selectAuthUser);
-  const role = useAppSelector(selectRole);
-  const menuItems = NAVBAR_DROPDOWN_MENU.filter((m) => m.roles.includes(role ?? 'USER'));
+  const {data: me} = useMe();
+  const user = me?.profile;
+  const menuItems = NAVBAR_DROPDOWN_MENU.filter((m) => m.roles.includes(user?.role ?? 'USER'));
 
   
 

@@ -40,8 +40,16 @@ http.interceptors.request.use((config: InternalAxiosRequestConfig) => {
     config.headers.Authorization = `Bearer ${token}`;
   }
 
-  if (!config.headers["Content-Type"]) {
-    config.headers["Content-Type"] = "application/json";
+  const isFormData =
+    typeof FormData !== "undefined" && config.data instanceof FormData;
+
+  if (isFormData) {
+    delete (config.headers as Record<string, unknown>)["Content-Type"];
+    delete (config.headers as Record<string, unknown>)["content-type"];
+  } else {
+    if (!config.headers["Content-Type"] && !config.headers["content-type"]) {
+      config.headers["Content-Type"] = "application/json";
+    }
   }
 
   return config;

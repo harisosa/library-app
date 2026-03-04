@@ -21,7 +21,7 @@ export const toUpsertValues = (book: BookDetail): BookUpsertValues => ({
 export const toCreatePayload = (v: BookUpsertValues): CreateBookFormDataFields => ({
   title: v.title.trim(),
   description: v.description.trim(),
-  isbn: generateIndonesianISBN13(),
+  isbn: v.isbn,
   publishedYear: v.publishedYear,
 
   authorId: v.authorId,
@@ -37,16 +37,13 @@ export const toCreatePayload = (v: BookUpsertValues): CreateBookFormDataFields =
 export const getBookUpsertInitValue = (): BookUpsertValues => ({
   title: "",
   description: "",
-  isbn: "",
+  isbn: generateIndonesianISBN13(),
   publishedYear: new Date().getFullYear(),
-
   authorId: 0,
   authorName: "",
-
   categoryId: 0,
-  totalCopies: 1,
-  availableCopies: 1,
-
+  totalCopies: 50, // for testing purpose, field is not in the form (Figma)
+  availableCopies: 50,
   coverFile: null,
   coverPreviewUrl: null,
   coverImageUrl: null,

@@ -3,6 +3,7 @@ import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import { Section } from "@/shared/components";
 import { UserComponent } from "@/features/user/components/User";
 import { AdminBookListPage } from "@/features/books/components/AdminBookListPage";
+import { AdminBorrowedList } from "@/features/loan/components";
 
 
 type Props = {
@@ -41,7 +42,7 @@ export default async function AdminPage({ searchParams }: Props) {
         </TabsContent>
 
         <TabsContent value="borrowed" className="mt-8">
-
+          <AdminBorrowedList />
         </TabsContent>
       </Tabs>
     </Section>

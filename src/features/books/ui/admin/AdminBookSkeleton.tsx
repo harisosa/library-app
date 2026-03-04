@@ -10,7 +10,7 @@ export const AdminBooksListSkeleton: React.FC = () => {
           className="rounded-2xl bg-white shadow-sm ring-1 ring-black/5 px-4 py-4 md:px-6 md:py-5"
         >
           <div className="flex items-center gap-4">
-            <Skeleton className="h-[120px] w-[84px] rounded-xl" />
+            <Skeleton className="h-30 w-21 rounded-xl" />
             <div className="flex-1 space-y-2">
               <Skeleton className="h-6 w-40 rounded-full" />
               <Skeleton className="h-6 w-72" />

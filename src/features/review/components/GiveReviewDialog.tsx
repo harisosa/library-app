@@ -7,6 +7,7 @@ import { Button } from '@/components/ui/button'
 import { Dialog, DialogContent, DialogTitle } from '@/components/ui/dialog'
 import { Textarea } from '@/components/ui/textarea'
 import { useCreateReview } from '@/features/review/hooks'
+import { cn } from '@/lib'
 
 
 type GiveReviewDialogProps = {
@@ -50,25 +51,14 @@ export const GiveReviewDialog: React.FC<GiveReviewDialogProps> = ({
   return (
     <Dialog open={open} onOpenChange={(v) => !isSending && onOpenChange(v)}>
       <DialogContent
-        className={[
+        className={cn(
           'w-[calc(100%-32px)] max-w-130 rounded-2xl p-6',
-          'border bg-white shadow-lg',
-        ].join(' ')}
+          'border bg-white shadow-lg')}
       >
         <div className="flex items-center justify-between">
           <DialogTitle className="text-base font-semibold text-neutral-900">
             Give Review
           </DialogTitle>
-
-          <button
-            type="button"
-            aria-label="Close"
-            className="rounded-md p-1 text-neutral-500 hover:bg-neutral-100 hover:text-neutral-700 disabled:opacity-50"
-            onClick={() => onOpenChange(false)}
-            disabled={isSending}
-          >
-            <X className="h-5 w-5" />
-          </button>
         </div>
 
         {/* Rating */}
@@ -90,10 +80,10 @@ export const GiveReviewDialog: React.FC<GiveReviewDialogProps> = ({
                   disabled={isSending}
                 >
                   <Star
-                    className={[
+                    className={cn(
                       'h-7 w-7',
-                      active ? 'fill-amber-400 text-amber-400' : 'text-neutral-300',
-                    ].join(' ')}
+                      active ? 'fill-amber-400 text-amber-400' : 'text-neutral-300')
+                    }
                   />
                 </button>
               )
@@ -107,12 +97,11 @@ export const GiveReviewDialog: React.FC<GiveReviewDialogProps> = ({
             onChange={(e) => setComment(e.target.value)}
             placeholder="Please share your thoughts about this book"
             disabled={isSending}
-            className={[
+            className={cn(
               'min-h-45 resize-none rounded-xl',
               'border-neutral-200 text-sm',
               'placeholder:text-neutral-400',
-              'focus-visible:ring-2 focus-visible:ring-neutral-200',
-            ].join(' ')}
+              'focus-visible:ring-2 focus-visible:ring-neutral-200')}
           />
         </div>
 
@@ -121,11 +110,10 @@ export const GiveReviewDialog: React.FC<GiveReviewDialogProps> = ({
             type="button"
             onClick={handleSend}
             disabled={!canSend}
-            className={[
+            className={cn(
               'h-10 w-full rounded-full',
               'bg-blue-600 hover:bg-blue-700 text-white',
-              'disabled:opacity-60 disabled:pointer-events-none',
-            ].join(' ')}
+              'disabled:opacity-60 disabled:pointer-events-none')}
           >
             {isSending ? 'Sending...' : 'Send'}
           </Button>

@@ -1,6 +1,6 @@
 import * as React from "react";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
-import { BorrowedList } from "@/features/loan/components/BorrowList";
+import { BorrowedList } from "@/features/loan/components/BorrowedList";
 import { Overview } from "@/features/profile/components";
 import { MyReviews } from "@/features/review/components/MyReview";
 import { Section } from "@/shared/components";

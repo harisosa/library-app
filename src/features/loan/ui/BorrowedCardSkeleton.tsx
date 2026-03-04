@@ -1,7 +1,7 @@
 import * as React from "react";
 import { Skeleton } from "@/components/ui/skeleton";
 
-const LoanCardSkeleton: React.FC = () => {
+const BorrowedCardSkeleton: React.FC = () => {
   return (
     <div className="rounded-2xl border bg-background px-5 py-4 shadow-sm">
       <div className="flex items-start justify-between gap-4">
@@ -19,7 +19,7 @@ const LoanCardSkeleton: React.FC = () => {
 
       <div className="flex items-center justify-between gap-6">
         <div className="flex min-w-0 items-center gap-4">
-          <Skeleton className="h-[92px] w-[72px] rounded-lg" />
+          <Skeleton className="h-23 w-18 rounded-lg" />
           <div className="min-w-0">
             <Skeleton className="mb-2 h-5 w-20 rounded-md" />
             <Skeleton className="h-5 w-56 max-w-full rounded" />
@@ -37,9 +37,9 @@ const LoanCardSkeleton: React.FC = () => {
 export const BorrowedListSkeleton: React.FC = () => {
   return (
     <>
-      <LoanCardSkeleton />
-      <LoanCardSkeleton />
-      <LoanCardSkeleton />
+      <BorrowedCardSkeleton />
+      <BorrowedCardSkeleton />
+      <BorrowedCardSkeleton />
     </>
   );
 };

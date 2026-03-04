@@ -1,10 +1,10 @@
 import { api } from "@/lib/http/api";
-import type { GetMyLoansParams, MyLoanResponse,  } from "../types";
+import type { GetLoansParams, LoanResponse,  } from "../types";
 
 export const getMyLoans = async (
-  params: GetMyLoansParams
-): Promise<MyLoanResponse> => {
-  return await api<MyLoanResponse>({
+  params: GetLoansParams
+): Promise<LoanResponse> => {
+  return await api<LoanResponse>({
     method: "GET",
     url: "/loans/my",
     params,
@@ -16,4 +16,16 @@ export const returnLoan = (loanId: number) => {
     method: 'PATCH',
     url: `/loans/${loanId}/return`,
   })
+}
+
+
+export const getAdminLoans = async (
+  params: GetLoansParams
+): Promise<LoanResponse> => {
+  return await api<LoanResponse>({
+    method: "GET",
+    url: "/admin/loans",
+    params,
+  })
+
 }

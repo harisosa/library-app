@@ -1,32 +1,12 @@
-import { Author } from "@/features/author/types";
-import { Category } from "@/features/category/types";
+
+import { Book } from "@/features/books/types";
 import { Pagination } from "@/types/pagination";
 
 export type LoanStatusTab = "all" | "active" | "returned" | "overdue";
 
-export type LoanItemStatus = "BORROWED" | "RETURNED" | "OVERDUE";
+export type LoanItemStatus = "BORROWED" | "RETURNED" | "OVERDUE"| "ACTIVE";
 
 
-
-export type LoanBook = {
-  id: number;
-  title: string;
-  description: string;
-  isbn: string;
-  publishedYear: number;
-  coverImage: string;
-  rating: number;
-  reviewCount: number;
-  totalCopies: number;
-  availableCopies: number;
-  borrowCount: number;
-  authorId: number;
-  categoryId: number;
-  createdAt: string;
-  updatedAt: string;
-  author: Author;
-  category: Category;
-};
 
 export type Loan = {
   id: number;
@@ -36,12 +16,19 @@ export type Loan = {
   dueAt: string;
   returnedAt: string | null;
   durationDays: number;
-  book: LoanBook;
+  borrower: LoanBorrower
+  book: Book;
 };
 
+export interface LoanBorrower {
+  id: number
+  name: string
+  email: string
+  phone: string | null
+}
 
 
-export type GetMyLoansParams = {
+export type GetLoansParams = {
   status: LoanStatusTab;
   q?: string;
   page: number;
@@ -49,7 +36,7 @@ export type GetMyLoansParams = {
 };
 
 
-export type MyLoanResponse = {
+export type LoanResponse = {
     loans: Loan[];
     pagination: Pagination;
 }

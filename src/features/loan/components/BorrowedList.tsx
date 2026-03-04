@@ -3,7 +3,7 @@
 import React, { useMemo, useState } from "react";
 import type { LoanStatusTab } from "../types";
 import { SearchInput } from "@/components/ui/search-input";
-import { BorrowedListError, BorrowedListSkeleton, LoanCard, StatusTabs } from "@/features/loan/ui";
+import { BorrowedCard, BorrowedListError, BorrowedListSkeleton, BorrowedActionButton, StatusTabs } from "@/features/loan/ui";
 import { LoadMoreButton } from "@/components/ui/load-more-button";
 import { ConfirmationDialog } from "@/components/ui/confirmation-dialog";
 
@@ -73,18 +73,22 @@ export const BorrowedList: React.FC = () => {
 
         {!isInitialLoading && !isError
           ? loans.map((loan) => (
-              <LoanCard
+              <BorrowedCard
                 key={loan.id}
                 loan={loan}
-                onGiveReview={(bookId: number ) => {
-                  setBookId(bookId);
+              >
+                <BorrowedActionButton 
+                  isReturned={loan.status === 'RETURNED'}
+                                onGiveReview={() => {
+                  setBookId(loan.id);
                   setOpenDialogReview(true);
                 }}
-                onReturn={(id:number)=>{
-                  setLoanId(id);
+                onReturn={()=>{
+                  setLoanId(loan.id);
                   setOpenConfirmationDialog(true);
                 }}
-              />
+                />
+              </BorrowedCard>
             ))
           : null}
       </div>

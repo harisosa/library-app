@@ -62,11 +62,14 @@ export const AdminBorrowedList: React.FC = () => {
                             key={loan.id}
                             loan={loan}
                         >
-                            <Separator className="my-2 md:hidden" />
-                            <div className="flex flex-col">
-                                <span className="text-md font-semibold text-neutral-950">borrower&apos;s name</span>
-                                <span className="text-xl font-bold text-neutral-950">{loan.borrower.name}</span>
+                            <div className="flex flex-col w-full">
+                                <Separator className="my-2 md:hidden w-full" />
+                                <div className="flex flex-col">
+                                    <span className="text-md font-semibold text-neutral-950">borrower&apos;s name</span>
+                                    <span className="text-xl font-bold text-neutral-950">{loan.borrower.name}</span>
+                                </div>
                             </div>
+
                         </BorrowedCard>
                     ))
                     : null}

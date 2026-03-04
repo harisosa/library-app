@@ -43,8 +43,10 @@ export const SuccessComponent: React.FC = () => {
                     </p>
 
                     <div className="mt-8 w-full space-y-3">
-                        <Button className="w-full rounded-full" asChild>
-                            <a href="'/profile?tab=borrowed'">View My Loans</a>
+                        <Button className="w-full rounded-full"
+                        onClick={() => { router.push('/profile?tab=borrowed') }}
+                        asChild>
+                            View My Loans
                         </Button>
 
                         <Button className="w-full rounded-full bg-[#1C65DA]" variant="outline" asChild

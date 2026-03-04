@@ -14,7 +14,7 @@ export const useClearCart = () => {
       await qc.cancelQueries({ queryKey: cartKeys.items() });
 
       const prev = qc.getQueryData<Cart>(cartKeys.items());
-      qc.setQueryData<Cart>(cartKeys.items(), { items: [] });
+      qc.setQueryData<Cart>(cartKeys.items(), { cartId : -1,items: [] });
 
       return { prev };
     },
@@ -26,7 +26,7 @@ export const useClearCart = () => {
 
     onSuccess: () => {
         toast.success("Successfully clear cart")
-      qc.setQueryData<Cart>(cartKeys.items(), { items: [] });
+      qc.setQueryData<Cart>(cartKeys.items(), {cartId : -1, items: [] });
     },
 
     onSettled: () => {

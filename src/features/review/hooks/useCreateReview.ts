@@ -19,7 +19,7 @@ export const useCreateReview = () => {
 
       qc.invalidateQueries({ queryKey: reviewsQueryKeys.byBook(vars.bookId) })
       qc.invalidateQueries({ queryKey: reviewsQueryKeys.my() })
-      qc.invalidateQueries({ queryKey: booksQueryKeys.detail(vars.bookId) })
+      qc.invalidateQueries({ queryKey: booksQueryKeys.all})
     },
 
     onError: (error: unknown) => {

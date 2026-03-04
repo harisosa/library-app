@@ -11,7 +11,7 @@ import { RecommendationSkeleton } from "@/features/books/ui/skeleton"
 
 type BookCarouselProps = {
   id: string;
-  by : 'popular' | 'rating';
+  by: 'popular' | 'rating';
   limit: number;
   title?: string;
   isLoadMore?: boolean;
@@ -19,11 +19,11 @@ type BookCarouselProps = {
 }
 
 
-export const BookCarousel: React.FC<BookCarouselProps> = ({id, by, limit, title, isLoadMore = true, containerClassname}) => {
+export const BookCarousel: React.FC<BookCarouselProps> = ({ id, by, limit, title, isLoadMore = true, containerClassname }) => {
   const q = useRecommendedBooksInfinite({ by: by, limit: limit })
 
   if (q.isLoading) return <RecommendationSkeleton />
-  if (q.isError)     return <RecommendationError />
+  if (q.isError) return <RecommendationError />
 
   const books = q.data?.pages.flatMap((p) => p.books) ?? []
 
@@ -31,7 +31,7 @@ export const BookCarousel: React.FC<BookCarouselProps> = ({id, by, limit, title,
     <Section id={id} title={title} contentClassName={containerClassname} >
       <div
         className={cn(
-          "grid justify-between",
+          "grid w-full",
           "grid-cols-2 gap-x-4 gap-y-6",
           "md:grid-cols-3",
           "lg:grid-cols-4",
@@ -43,20 +43,20 @@ export const BookCarousel: React.FC<BookCarouselProps> = ({id, by, limit, title,
         ))}
       </div>
 
-        {isLoadMore && (
+      {isLoadMore && (
 
-      <div className="flex justify-center mt-10">
-        <Button
-          type="button"
-          variant="outline"
-          className="h-10 rounded-full px-10"
-          onClick={() => q.fetchNextPage()}
-          disabled={!q.hasNextPage || q.isFetchingNextPage}
-        >
-          {q.isFetchingNextPage ? "Loading..." : "Load More"}
-        </Button>
-      </div>
-        )}
+        <div className="flex justify-center mt-10">
+          <Button
+            type="button"
+            variant="outline"
+            className="h-10 rounded-full px-10"
+            onClick={() => q.fetchNextPage()}
+            disabled={!q.hasNextPage || q.isFetchingNextPage}
+          >
+            {q.isFetchingNextPage ? "Loading..." : "Load More"}
+          </Button>
+        </div>
+      )}
 
     </Section>
   )

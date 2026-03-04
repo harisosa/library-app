@@ -7,7 +7,7 @@ import Link from "next/link";
 export const NavbarDesktop: React.FC<{ isAuthenticated: boolean }> = ({ isAuthenticated }) => {
 
   return (
-    <div className="hidden lg:flex h-20 items-center gap-[152.5px]">
+    <div className="hidden lg:flex h-20 items-center gap-[152.5px] w-full justify-between">
       <div className="flex items-center gap-4">
         <Link href="/">
           <div className="relative w-30 h-8.25">

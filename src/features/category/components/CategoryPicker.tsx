@@ -43,7 +43,7 @@ export const CategoryPicker: React.FC<CategoryPickerProps> = ({
 
   return (
     <Section id='category-picker'>
-      <div className="w-full flex gap-3 lg:gap-4 flex-wrap">
+      <div className="w-full flex gap-3 lg:gap-4 flex-wrap justify-between">
         {categories.map((c) => (
           <CategoryCard
             key={c.id}

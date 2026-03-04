@@ -26,18 +26,11 @@ export const CategoryCard: React.FC<CategoryCardProps> = ({ id, name, onClick, c
             sm:w-32 sm:h-33
             md:w-36 md:h-32.75
             lg:w-40.5 lg:h-32.75
-            xl:w-46.5 xl:h-32.5
-            2xl:w-46.5 2xl:h-32.5
-            3xl:w-[186px] 3xl:h-[130px]
+            xl:w-44 xl:h-34
+            2xl:w-48 2xl:h-36
+            3xl:w-[320px] 3xl:h-[180px]
             lg:p-3 p-2 shadow-sm transition-transform duration-200 hover:scale-[1.01] gap-3">
-                <div className="flex relative items-center justify-center rounded-xl bg-[#D8E7FF] 
-                        w-24 h-14
-                        sm:w-28 sm:h-14
-                        md:w-32 md:h-15
-                        lg:w-36 lg:h-15
-                        xl:w-40.5 xl:h-16
-                        2xl:w-40.5 2xl:h-16
-                        3xl:w-[162px] 3xl:h-[64px]">
+                <div className="flex relative items-center justify-center rounded-xl bg-[#D8E7FF] w-full h-full">
                     <Image
                         src={getCategoryIconSrc(name)}
                         fill

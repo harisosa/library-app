@@ -18,7 +18,7 @@ export const BookCard: React.FC<BookCardProps> = ({ book, className }) => {
     <Card
       className={cn(
         "overflow-hidden border-none rounded-2xl bg-white shadow-[0px_4px_20px_0px_rgba(0,0,0,0.06)] p-0",
-        "w-43 h-92.5 xl:w-56 xl:h-117",
+        "w-full",
         className,
       )}
 
@@ -26,7 +26,7 @@ export const BookCard: React.FC<BookCardProps> = ({ book, className }) => {
       <div
         className={cn(
           "relative",
-          "w-43 h-64.5 xl:w-56  lg:h-84",
+          "h-64.5 w-full lg:h-84",
         )}
       >
         <BookCover src={book.coverImage} alt={book.title} />

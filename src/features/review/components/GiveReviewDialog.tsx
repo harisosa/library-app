@@ -48,8 +48,16 @@ export const GiveReviewDialog: React.FC<GiveReviewDialogProps> = ({
     )
   }
 
+  const handleOpenChange = (nextOpen: boolean) => {
+  if (!nextOpen) {
+    setStar(initialStar)
+    setComment("")
+  }
+  onOpenChange(nextOpen)
+}
+
   return (
-    <Dialog open={open} onOpenChange={(v) => !isSending && onOpenChange(v)}>
+    <Dialog open={open} onOpenChange={(v) => !isSending && handleOpenChange(v)}>
       <DialogContent
         className={cn(
           'w-[calc(100%-32px)] max-w-130 rounded-2xl p-6',

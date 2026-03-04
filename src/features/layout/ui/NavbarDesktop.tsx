@@ -4,7 +4,7 @@ import { UserMenu } from "@/features/layout/ui/UserMenu";
 import Image from "next/image";
 import Link from "next/link";
 
-export const NavbarDesktop: React.FC<{ isAuthenticated: boolean }> = ({ isAuthenticated }) => {
+export const NavbarDesktop: React.FC<{ isAuthenticated: boolean, onSearch: (value: string) => void }> = ({ isAuthenticated, onSearch }) => {
 
   return (
     <div className="hidden lg:flex h-20 items-center gap-[152.5px] w-full justify-between">
@@ -26,7 +26,12 @@ export const NavbarDesktop: React.FC<{ isAuthenticated: boolean }> = ({ isAuthen
         <GuestActions />
       ) : (
         <>
-          <SearchInput placeholder="Search book" />
+          <SearchInput 
+          placeholder="Search book"
+                onKeyDown={(e) => {
+        if (e.key === "Enter") onSearch(e.currentTarget.value)
+      }}
+          />
           <UserMenu />
         </>
       )}

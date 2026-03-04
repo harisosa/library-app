@@ -10,7 +10,7 @@ import Image from "next/image";
 import Link from "next/link";
 import * as React from "react";
 
-export const NavbarMobile: React.FC<{ isAuthenticated: boolean }> = ({ isAuthenticated }) => {
+export const NavbarMobile: React.FC<{ isAuthenticated: boolean, onSearch: (value: string) => void }> = ({ isAuthenticated, onSearch }) => {
   const [isSearchOpen, setIsSearchOpen] = React.useState(false);
   const [isMenuOpen, setIsMenuOpen] = React.useState(false);
 
@@ -24,7 +24,12 @@ export const NavbarMobile: React.FC<{ isAuthenticated: boolean }> = ({ isAuthent
 
       {isAuthenticated && isSearchOpen ? (
         <div className="flex items-center w-full gap-2">
-          <SearchInput autoFocus placeholder="Search book" className="flex-1 h-12 rounded-full" />
+          <SearchInput autoFocus placeholder="Search book"
+            className="flex-1 h-12 rounded-full"
+            onKeyDown={(e) => {
+              if (e.key === "Enter") onSearch(e.currentTarget.value)
+            }}
+          />
           <Button variant="ghost" size="icon" onClick={() => setIsSearchOpen(false)} aria-label="Close search">
             <X style={{ width: "24px", height: "24px" }} />
           </Button>
@@ -48,7 +53,7 @@ export const NavbarMobile: React.FC<{ isAuthenticated: boolean }> = ({ isAuthent
 
       {/* Menu panel (no drawer) */}
       {isMenuOpen && !isSearchOpen && (
-        <div className="absolute right-0 top-[64px] z-50 w-[320px] max-w-[calc(100vw-16px)]">
+        <div className="absolute right-0 top-16 z-50 w-[320px] max-w-[calc(100vw-16px)]">
           <div className="rounded-2xl bg-white p-4 shadow-[0_12px_40px_rgba(0,0,0,0.12)]">
             {!isAuthenticated ? (
               <div className="grid grid-cols-2 gap-2">

@@ -80,7 +80,7 @@ export const BorrowedList: React.FC = () => {
                 <BorrowedActionButton 
                   isReturned={loan.status === 'RETURNED'}
                                 onGiveReview={() => {
-                  setBookId(loan.id);
+                  setBookId(loan.book.id);
                   setOpenDialogReview(true);
                 }}
                 onReturn={()=>{
